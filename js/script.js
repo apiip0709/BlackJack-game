@@ -1,9 +1,6 @@
 let aiSums = 0;
 let yourSums = 0;
 
-let aiASCards = 0;
-let yourASCards = 0;
-
 let hidden;
 let cards;
 
@@ -74,8 +71,6 @@ btnStartGame.addEventListener("click", function () {
 
         aiSums = 0;
         yourSums = 0;
-        aiASCards = 0;
-        yourASCards = 0;
         canHit = true;
 
         while (yourCardsResult.firstChild) {
@@ -91,7 +86,6 @@ btnStartGame.addEventListener("click", function () {
         cardImg.className = "hidden-card";
         aiCardsResult.append(cardImg);
 
-        // buildCards();
         shuffleCards();
         aiSumsResult.textContent = "";
         yourSumsResult.textContent = "";
@@ -100,8 +94,6 @@ btnStartGame.addEventListener("click", function () {
     } else if (btnStartGame.textContent === "PLAY AGAIN?") {
         aiSums = 0;
         yourSums = 0;
-        aiASCards = 0;
-        yourASCards = 0;
         canHit = true;
 
         while (yourCardsResult.firstChild) {
@@ -160,7 +152,6 @@ btnStartGame.addEventListener("click", function () {
             let card = cards.pop();
             cardImg.src = `/img/${card}.png`;
             yourSums += getValueYourCard(card);
-            // yourASCards += checkASCard(card);
             yourSumsResult.textContent = yourSums;
             yourCardsResult.append(cardImg);
             cardsLeft.textContent = cards.length;
@@ -182,14 +173,9 @@ btnTakeCard.addEventListener("click", function () {
     let card = cards.pop();
     cardImg.src = `/img/${card}.png`;
     yourSums += getValueYourCard(card);
-    // yourASCards += checkASCard(card);
     yourSumsResult.textContent = yourSums;
     yourCardsResult.append(cardImg);
     cardsLeft.textContent = cards.length;
-
-    // if (reduceAS(yourSums, yourASCards) > 21) {
-    //     canHit = false;
-    // }
 
     if (yourSums > 21) {
         btnTakeCard.disabled = true;
@@ -218,7 +204,6 @@ btnHoldCard.addEventListener("click", function () {
             let card = cards.pop();
             cardImg.src = `/img/${card}.png`;
             aiSums += getValueAiCard(card);
-            // aiASCards += checkASCard(card);
             aiCardsResult.append(cardImg);
             aiSumsResult.textContent = aiSums;
             cardsLeft.textContent = cards.length;
@@ -226,8 +211,6 @@ btnHoldCard.addEventListener("click", function () {
             if (aiSums <= 16) {
                 addBotCards();
             } else {
-                // aiSums = reduceAS(aiSums, aiASCards);
-                // yourSums = reduceAS(yourSums, yourASCards);
                 canHit = false;
 
                 let message = "";
@@ -336,19 +319,3 @@ function getValueAiCard(card) {
 
     return parseInt(value);
 }
-
-// function checkASCard(card) {
-//     if (card[0] == "A") {
-//         return 1;
-//     }
-//     return 0;
-// }
-
-// function reduceAS(playerSum, playerAceCount) {
-//     while (playerSum > 21 && playerAceCount > 0) {
-//         playerSum -= 10;
-//         playerAceCount -= 1;
-//     }
-
-//     return playerSum;
-// }
