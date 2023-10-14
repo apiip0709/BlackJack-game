@@ -48,7 +48,7 @@ function buildCards() {
 
 function shuffleCards() {
     for (let i = 0; i < cards.length; i++) {
-        let j = Math.floor(Math.random() * cards.length); //
+        let j = Math.floor(Math.random() * cards.length);
         let temp = cards[i];
         cards[i] = cards[j];
         cards[j] = temp;
@@ -58,7 +58,7 @@ function shuffleCards() {
 btnStartGame.addEventListener("click", function () {
     if (isNaN(inputMoney.value) || inputMoney.value <= 0) {
         alert("Please enter a valid bet amount.");
-        return
+        return;
     }
 
     if (btnStartGame.textContent === "TRY AGAIN?") {
@@ -159,8 +159,8 @@ btnStartGame.addEventListener("click", function () {
             let cardImg = document.createElement("img");
             let card = cards.pop();
             cardImg.src = `/img/${card}.png`;
-            yourSums += getValueOfCard(card);
-            yourASCards += checkASCard(card);
+            yourSums += getValueYourCard(card);
+            // yourASCards += checkASCard(card);
             yourSumsResult.textContent = yourSums;
             yourCardsResult.append(cardImg);
             cardsLeft.textContent = cards.length;
@@ -181,15 +181,15 @@ btnTakeCard.addEventListener("click", function () {
     let cardImg = document.createElement("img");
     let card = cards.pop();
     cardImg.src = `/img/${card}.png`;
-    yourSums += getValueOfCard(card);
-    yourASCards += checkASCard(card);
+    yourSums += getValueYourCard(card);
+    // yourASCards += checkASCard(card);
     yourSumsResult.textContent = yourSums;
     yourCardsResult.append(cardImg);
     cardsLeft.textContent = cards.length;
 
-    if (reduceAS(yourSums, yourASCards) > 21) {
-        canHit = false;
-    }
+    // if (reduceAS(yourSums, yourASCards) > 21) {
+    //     canHit = false;
+    // }
 
     if (yourSums > 21) {
         btnTakeCard.disabled = true;
@@ -217,17 +217,17 @@ btnHoldCard.addEventListener("click", function () {
             let cardImg = document.createElement("img");
             let card = cards.pop();
             cardImg.src = `/img/${card}.png`;
-            aiSums += getValueOfCard(card);
-            aiASCards += checkASCard(card);
+            aiSums += getValueAiCard(card);
+            // aiASCards += checkASCard(card);
             aiCardsResult.append(cardImg);
             aiSumsResult.textContent = aiSums;
             cardsLeft.textContent = cards.length;
 
-            if (aiSums < 18) {
+            if (aiSums <= 16) {
                 addBotCards();
             } else {
-                aiSums = reduceAS(aiSums, aiASCards);
-                yourSums = reduceAS(yourSums, yourASCards);
+                // aiSums = reduceAS(aiSums, aiASCards);
+                // yourSums = reduceAS(yourSums, yourASCards);
                 canHit = false;
 
                 let message = "";
@@ -301,15 +301,15 @@ btnResetCard.addEventListener("click", function () {
     }, 200);
 })
 
-function getValueOfCard(card) {
+function getValueYourCard(card) {
     let cardDetail = card.split("-");
     let value = cardDetail[0];
 
     if (isNaN(value)) {
         if (value == "A") {
-            if (yourSums >= 11 || aiSums >= 11) {
+            if (yourSums >= 11) {
                 return 1
-            } else if (yourSums < 11 || aiSums < 11) {
+            } else if (yourSums < 11) {
                 return 11;
             }
         }
@@ -319,18 +319,36 @@ function getValueOfCard(card) {
     return parseInt(value);
 }
 
-function checkASCard(card) {
-    if (card[0] == "A") {
-        return 1;
+function getValueAiCard(card) {
+    let cardDetail = card.split("-");
+    let value = cardDetail[0];
+
+    if (isNaN(value)) {
+        if (value == "A") {
+            if (aiSums >= 11) {
+                return 1
+            } else if (aiSums < 11) {
+                return 11;
+            }
+        }
+        return 10;
     }
-    return 0;
+
+    return parseInt(value);
 }
 
-function reduceAS(playerSum, playerAceCount) {
-    while (playerSum > 21 && playerAceCount > 0) {
-        playerSum -= 10;
-        playerAceCount -= 1;
-    }
+// function checkASCard(card) {
+//     if (card[0] == "A") {
+//         return 1;
+//     }
+//     return 0;
+// }
 
-    return playerSum;
-}
+// function reduceAS(playerSum, playerAceCount) {
+//     while (playerSum > 21 && playerAceCount > 0) {
+//         playerSum -= 10;
+//         playerAceCount -= 1;
+//     }
+
+//     return playerSum;
+// }

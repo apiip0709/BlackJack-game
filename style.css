@@ -11,6 +11,11 @@ body {
     align-items: center;
     color: white;
     text-align: center;
+    background-image: url('img/Background.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    height: 100vh;
 }
 
 .table {
@@ -31,13 +36,6 @@ body {
 .your-cards img {
     width: 100px;
     margin: 1px;
-}
-
-.bg {
-    width: 100%;
-    height: 100vh;
-    position: absolute;
-    z-index: -1;
 }
 
 .title {
@@ -197,7 +195,7 @@ button {
 
     button {
         width: 180x;
-        height: 35px;
+        height: 30px;
         margin: 2px;
     }
 }
@@ -209,7 +207,8 @@ button {
     }
 
     button {
-        width: 200px;
-        height: 25px;
+        width: 250px;
+        height: 40px; 
+        margin: 5px;
     }
 }
