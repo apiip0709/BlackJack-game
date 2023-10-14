@@ -6,14 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BlackJack | Game Gacor</title>
 
+    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
+    <!-- Box Icons -->
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 </head>
 
 <body>
+    <!-- Header for TopUp -->
     <div class="container">
         <i class='bx bx-money-withdraw' id="menu" onclick="showPopup()"></i>
     </div>
+    <!-- PopUp for TopUp-->
     <div class="overlay" id="overlay"></div>
     <div class="popup" id="popup">
         <h2>TOP UP</h2>
@@ -26,10 +30,12 @@
         <span class="close" onclick="hidePopup()">&times;</span>
     </div>
 
+    <!-- Title -->
     <h1 class="title">BlackJack</h1>
     <h3>Play a Round?</h3>
     <h3>Cards Left : <span id="cards-left"></span></h3>
 
+    <!-- Position Table -->
     <div class="table">
         <div class="left">
             <h4>Your Cards :</h4>
@@ -48,12 +54,14 @@
         </div>
     </div>
 
+    <!-- Message and Money -->
     <p id="result"></p>
 
     <h4>Your money : Rp <span id="money-sums">50000</span></h4>
     <input type="number" placeholder="Place your bet..." id="input-money" class="input-money">
 
     <br>
+    <!-- Button -->
     <div class="btn">
         <button id="btn-start">START GAME</button>
         <button id="btn-take">Take a Card</button>
@@ -61,6 +69,7 @@
         <button id="btn-reset">Reset Card</button>
     </div>
 
+    <!-- Script -->
     <script src="js/depoScript.js"></script>
     <script src="js/script.js"></script>
     <script src="js/menuScript.js"></script>
