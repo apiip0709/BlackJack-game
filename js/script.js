@@ -168,7 +168,7 @@ btnStartGame.addEventListener("click", function () {
     btnStartGame.textContent = "TRY AGAIN?";
     btnStartGame.setAttribute("disabled", true);
 
-    // Menampilkan kartu acak pada layar untuk Your
+    // Menampilkan kartu acak pada layar untuk Your sebanyak 2
     setTimeout(() => {
         for (let i = 0; i < 2; i++) {
             let cardImg = document.createElement("img");
@@ -182,16 +182,20 @@ btnStartGame.addEventListener("click", function () {
     }, 200)
 });
 
+// Action dari button Take
 btnTakeCard.addEventListener("click", function () {
+    // Kondisi saat tidak dapat take kartu
     if (!canHit) {
         return
     };
 
+    // Kondisi saat sisa kartu 0 atau kartu habis
     if (cardsLeft === 0) {
         alert("Kartu Habis Silahkan di Reset")
         return;
     }
 
+    // Menampilkan tambahan kartu sebanyak 1
     let cardImg = document.createElement("img");
     let card = cards.pop();
     cardImg.src = `/img/${card}.png`;
@@ -200,6 +204,7 @@ btnTakeCard.addEventListener("click", function () {
     yourCardsResult.append(cardImg);
     cardsLeft.textContent = cards.length;
 
+    // Kondisi saat total kartu lebih dari 21
     if (yourSums > 21) {
         btnTakeCard.disabled = true;
         btnHoldCard.disabled = true;
