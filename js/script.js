@@ -1,3 +1,4 @@
+// Variabel untuk mengubah nilai
 let aiSums = 0;
 let yourSums = 0;
 
@@ -6,6 +7,7 @@ let cards;
 
 let canHit = true;
 
+// Variabel untuk mengambil nilai dari html
 const btnStartGame = document.getElementById("btn-start");
 const btnTakeCard = document.getElementById("btn-take");
 const btnHoldCard = document.getElementById("btn-hold");
@@ -22,6 +24,7 @@ const inputMoney = document.getElementById("input-money");
 const cardsLeft = document.getElementById("cards-left");
 const result = document.getElementById("result");
 
+// Tampilan saat di load pertama
 window.onload = function () {
     buildCards();
     shuffleCards();
@@ -31,6 +34,7 @@ window.onload = function () {
     btnHoldCard.setAttribute("disabled", true);
 }
 
+// Untuk membuat kartu dengan kombinasi sesuai nama file gambar
 function buildCards() {
     let types = ["K", "B", "H", "S"];
     let values = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
@@ -43,6 +47,7 @@ function buildCards() {
     }
 }
 
+// Untuk mengacak kartu
 function shuffleCards() {
     for (let i = 0; i < cards.length; i++) {
         let j = Math.floor(Math.random() * cards.length);
@@ -52,18 +57,23 @@ function shuffleCards() {
     }
 }
 
+// Action dari button start
 btnStartGame.addEventListener("click", function () {
+    // Kondisi inputMoney 0 atau huruf
     if (isNaN(inputMoney.value) || inputMoney.value <= 0) {
         alert("Please enter a valid bet amount.");
         return;
     }
 
+    // Kondisi saat teks button Start menjadi try again
     if (btnStartGame.textContent === "TRY AGAIN?") {
+        // Kondisi saat uang habis
         if (yourMoney.textContent <= 0) {
             alert("Habis Uang, tobat");
             return btnStartGame.textContent = "PLAY AGAIN?";
         }
 
+        // Kondisi saat inputMoney lebih dari uang yang dimiliki
         if (yourMoney.textContent < parseInt(inputMoney.value)) {
             alert("Uang Tidak Cukup");
             return inputMoney.value = "";
@@ -73,6 +83,7 @@ btnStartGame.addEventListener("click", function () {
         yourSums = 0;
         canHit = true;
 
+        // Perulangan untuk menghapus kartu yang ada pada tampilan
         while (yourCardsResult.firstChild) {
             yourCardsResult.firstChild.remove();
         }
@@ -81,6 +92,7 @@ btnStartGame.addEventListener("click", function () {
             aiCardsResult.firstChild.remove();
         }
 
+        // Menampilkan gambar belakang kartu untuk AI
         let cardImg = document.createElement("img");
         cardImg.src = "./img/BACK.png";
         cardImg.className = "hidden-card";
@@ -91,11 +103,15 @@ btnStartGame.addEventListener("click", function () {
         yourSumsResult.textContent = "";
         result.textContent = "";
         inputMoney.textContent = "";
+
+    // Kondisi saat teks button start menjadi play again atau ketika uang habis,
+    // Kembali ke kondisi awal
     } else if (btnStartGame.textContent === "PLAY AGAIN?") {
         aiSums = 0;
         yourSums = 0;
         canHit = true;
 
+        // Perulangan untuk menghapus kartu yang ada pada tampilan
         while (yourCardsResult.firstChild) {
             yourCardsResult.firstChild.remove();
         }
@@ -104,6 +120,7 @@ btnStartGame.addEventListener("click", function () {
             aiCardsResult.firstChild.remove();
         }
 
+        // Menampilkan gambar belakang kartu untuk AI dan Your
         let myCardImg = document.createElement("img");
         myCardImg.src = "./img/BACK.png";
         myCardImg.className = "hidden-card";
@@ -124,16 +141,22 @@ btnStartGame.addEventListener("click", function () {
         result.textContent = "";
         inputMoney.value = "";
         return;
+
+    // Kondisi teks button start selain try again dan play again 
     } else {
+        // Kondisi saat inputMoney lebih dari uang yang dimiliki
         if (yourMoney.textContent < parseInt(inputMoney.value)) {
             alert("Uang Tidak Cukup");
             return inputMoney.value = "";
         }
 
+        // Menghapus belakang kartu yang ditampilkan
         setTimeout(function () {
             document.getElementsByClassName("hidden-card")[0].remove();
         });
     }
+
+    // Kondisi apabila sisa kartu kurang dari 4
     if (cardsLeft.textContent < 4) {
         alert("Kartu Habis Silahkan di Reset")
         return;
@@ -145,7 +168,7 @@ btnStartGame.addEventListener("click", function () {
     btnStartGame.textContent = "TRY AGAIN?";
     btnStartGame.setAttribute("disabled", true);
 
-
+    // Menampilkan kartu acak pada layar untuk Your
     setTimeout(() => {
         for (let i = 0; i < 2; i++) {
             let cardImg = document.createElement("img");
