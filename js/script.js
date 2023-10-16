@@ -331,6 +331,7 @@ btnResetCard.addEventListener("click", function () {
     }, 200);
 })
 
+// Function untuk menentukan nilai sesuai kartu yang dimiliki Your
 function getValueYourCard(card) {
     let cardDetail = card.split("-");
     let value = cardDetail[0];
@@ -349,6 +350,7 @@ function getValueYourCard(card) {
     return parseInt(value);
 }
 
+// Function untuk menentukan nilai sesuai kartu yang dimiliki AI
 function getValueAiCard(card) {
     let cardDetail = card.split("-");
     let value = cardDetail[0];
