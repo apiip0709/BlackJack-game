@@ -294,7 +294,9 @@ btnHoldCard.addEventListener("click", function () {
     addBotCards();
 });
 
+// Action dari button Reset
 btnResetCard.addEventListener("click", function () {
+    // Perulangan untuk menghapus semua kartu yang ditampilkan
     while (yourCardsResult.firstChild) {
         yourCardsResult.firstChild.remove();
     }
@@ -304,6 +306,7 @@ btnResetCard.addEventListener("click", function () {
     }
 
     setTimeout(function () {
+        // Menampilkan belakang kartu pada Your dan AI
         let myCardImg = document.createElement("img");
         myCardImg.src = "./img/BACK.png";
         myCardImg.className = "hidden-card";
@@ -314,6 +317,7 @@ btnResetCard.addEventListener("click", function () {
         cardImg.className = "hidden-card";
         aiCardsResult.append(cardImg);
     
+        // Memanggil function untuk membuat dan mengacak kartu
         buildCards();
         shuffleCards();
     
