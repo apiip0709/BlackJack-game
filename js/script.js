@@ -215,19 +215,24 @@ btnTakeCard.addEventListener("click", function () {
     }
 });
 
+// Action dari button Hold
 btnHoldCard.addEventListener("click", function () {
     btnHoldCard.disabled = true;
+    // Menghapus belakang kartu dari AI
     setTimeout(function () {
         document.getElementsByClassName("hidden-card")[0].remove();
     }, 1000);
 
+    // Function untuk menambahkan kartu pada AI
     function addBotCards() {
         setTimeout(function () {
+            // Kondisi saat sisa kartu kurang dari 2
             if (cardsLeft < 2) {
                 alert("Kartu Habis Silahkan di Reset")
                 return;
             }
 
+            // Menampilkan kartu acak pada AI sebanyak 1
             let cardImg = document.createElement("img");
             let card = cards.pop();
             cardImg.src = `/img/${card}.png`;
@@ -236,16 +241,21 @@ btnHoldCard.addEventListener("click", function () {
             aiSumsResult.textContent = aiSums;
             cardsLeft.textContent = cards.length;
 
+            // Kondisi apabila total kartu AI kurang dari 16, maka auto menambahkan kartu
             if (aiSums <= 16) {
                 addBotCards();
+            // Kondisi saat melebihi 16, maka perbandingan nilai Your dan AI
             } else {
                 canHit = false;
 
                 let message = "";
+                // Kondisi kalah Your lebih dari 21
                 if (yourSums > 21) {
                     message = "You Lose!";
                     yourMoney.textContent -= inputMoney.value;
+                // Kondisi menang AI lebih dari 21
                 } else if (aiSums > 21) {
+                    // Kondisi apakah kemenangan 21 atau kemenangan biasa
                     if (yourSums == 21) {
                         message = "You win!";
                         yourMoney.textContent = parseInt(yourMoney.textContent) + (inputMoney.value * 3 / 2);
@@ -253,9 +263,12 @@ btnHoldCard.addEventListener("click", function () {
                         message = "You win!";
                         yourMoney.textContent = parseInt(yourMoney.textContent) + parseInt(inputMoney.value);
                     }
+                // Kondisi draw nilai Your dan AI sama
                 } else if (yourSums == aiSums) {
                     message = "Tie!";
+                // Kondisi menang kartu Your lebih tinggi dari AI
                 } else if (yourSums > aiSums) {
+                    // Kondisi apakah kemenangan 21 atau kemenangan biasa
                     if (yourSums == 21) {
                         message = "You win!";
                         yourMoney.textContent = parseInt(yourMoney.textContent) + (inputMoney.value * 3 / 2);
@@ -263,6 +276,7 @@ btnHoldCard.addEventListener("click", function () {
                         message = "You Win!";
                         yourMoney.textContent = parseInt(yourMoney.textContent) + parseInt(inputMoney.value);
                     }
+                // Kondisi kalah kartu AI lebih tinggi dari Your
                 } else if (yourSums < aiSums) {
                     message = "You Lose!";
                     yourMoney.textContent -= inputMoney.value;
@@ -276,6 +290,7 @@ btnHoldCard.addEventListener("click", function () {
         }, 1000);
     }
 
+    // Pemanggilan function
     addBotCards();
 });
 
